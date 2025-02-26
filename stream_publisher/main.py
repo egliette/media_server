@@ -12,7 +12,7 @@ PASSWORD = os.getenv("PASSWORD")
 
 def get_video_files(directory: str) -> list:
     video_files = []
-    video_extensions = ["*.mp4", "*.webm", "*.avi"]
+    video_extensions = ["*.mp4", "*.webm", "*.avi", "*.mkv"]
     for extension in video_extensions:
         video_files.extend(glob(os.path.join(directory, extension)))
     return video_files
