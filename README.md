@@ -11,7 +11,7 @@
 docker-compose -f docker/docker-compose.simple_rtsp.yaml up
 ```
 
-You should see your stream at `rtsp://{USERNAME}:{PASSWORD}@localhost:8554/stream`
+You should see your stream at `rtsp://{USERNAME}:{PASSWORD}@localhost:8554/<video_name>`
 
-For example `rtsp://mediaserver:free4all@localhost:8554/stream`
+For example `rtsp://mediaserver:free4all@localhost:8554/your_camera`
     
