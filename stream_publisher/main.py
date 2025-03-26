@@ -30,8 +30,14 @@ def stream_video_to_url(video_path: str) -> Thread:
     rtsp_url = f"rtsp://${USERNAME}:${PASSWORD}@rtsp-server:8554/{video_name}"
     command = [
         "ffmpeg", "-re", "-stream_loop", "-1", "-i", video_path, 
-        "-c", "copy",
-        "-f", "rtsp", rtsp_url
+        "-fflags", "nobuffer",
+        "-flags", "low_delay",
+        "-max_delay", "0",
+        "-tune", "zerolatency",
+        "-c:v", "libx264",
+        "-preset", "ultrafast",
+        "-f", "rtsp", 
+        rtsp_url
     ]
     return run_command_in_thread(command)
 

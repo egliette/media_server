@@ -4,7 +4,7 @@ services:
     image: aler9/rtsp-simple-server
     container_name: rtsp-server
     environment:
-      - RTSP_PROTOCOLS=tcp
+      - RTSP_PROTOCOLS=tcp,udp
       - RTSP_USERNAME=${USERNAME}
       - RTSP_PASSWORD=${PASSWORD}
     ports:
