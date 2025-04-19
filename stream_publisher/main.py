@@ -27,7 +27,7 @@ def stream_videos(video_files: list[str]):
 
 def stream_video_to_url(video_path: str) -> Thread:
     video_name = Path(video_path).stem
-    rtsp_url = f"rtsp://${USERNAME}:${PASSWORD}@rtsp-server:8554/{video_name}"
+    rtsp_url = f"rtsp://{USERNAME}:{PASSWORD}@media-server:8554/{video_name}"
     command = [
         "ffmpeg", "-re", "-stream_loop", "-1", "-i", video_path, 
         "-fflags", "nobuffer",

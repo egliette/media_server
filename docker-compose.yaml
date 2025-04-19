@@ -1,0 +1,44 @@
+version: "3.8"
+
+services:
+  media-server:
+    image: bluenviron/mediamtx:1.11.3
+    container_name: media-server
+    environment:
+      - MTX_AUTHINTERNALUSERS_0_USER=${USERNAME}
+      - MTX_AUTHINTERNALUSERS_0_PASS=${PASSWORD}
+      - MTX_AUTHINTERNALUSERS_0_PERMISSIONS_0_ACTION=publish
+      - MTX_AUTHINTERNALUSERS_0_PERMISSIONS_1_ACTION=read
+      - MTX_AUTHINTERNALUSERS_0_PERMISSIONS_2_ACTION=playback
+    ports:
+      - "1935:1935"
+      - "8554:8554"
+      - "8888:8888"
+      - "9997:9997"
+    volumes:
+      - ./mediamtx.yml:/mediamtx.yml
+    networks:
+     - media-server
+
+  stream-publisher:
+    build:
+      context: ./stream_publisher 
+    image: stream-publisher
+    container_name: stream-publisher
+    depends_on:
+      - media-server
+    environment:
+      - USERNAME=${USERNAME}
+      - PASSWORD=${PASSWORD}
+    volumes:
+      - ./stream_publisher:/app
+      - ./videos:/videos  
+    networks:
+      - media-server
+    # command: ["python3", "main.py"]
+    tty: True
+
+networks:
+  media-server:
+    name: media-server
+    external: True

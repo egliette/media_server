@@ -4,7 +4,7 @@
 
 **Step 1**: Put your videos inside `videos` folder.
 
-**Step 2**: Edit your `USERNAME`, `PASSWORD` inside `docker/.env`.
+**Step 2**: Edit your `USERNAME`, `PASSWORD` inside `.env`.
 
 **Step 3**: To stream your videos, run:
 ```

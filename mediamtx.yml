@@ -1,0 +1,16 @@
+writeTimeout: 10s
+
+paths:
+  all_others:
+
+authMethod: internal
+authInternalUsers:
+  - user:
+    pass:
+    ips: []
+    permissions:
+
+rtmpAddress: :1935
+rtspAddress: :8554
+hlsAddress: :8888
+apiAddress: :9997 

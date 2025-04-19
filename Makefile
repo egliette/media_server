@@ -1,9 +1,7 @@
-COMPOSE_FILE = docker/docker-compose.simple_rtsp.yaml
+COMPOSE_FILE = docker-compose.yaml
 SERVICE = stream-publisher
 
-.PHONY: init rebuild attach reattach down
-
-init:
+up:
 	docker-compose -f $(COMPOSE_FILE) up -d
 
 rebuild:
@@ -15,4 +13,11 @@ attach:
 down:
 	docker-compose -f $(COMPOSE_FILE) down
 
-reattach: down init attach
+restart:
+	docker-compose -f $(COMPOSE_FILE) restart
+
+hard-restart:
+	make down
+	make up
+
+reattach: down up attach
