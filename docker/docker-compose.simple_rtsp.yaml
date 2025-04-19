@@ -28,6 +28,7 @@ services:
     volumes:
       - ../stream_publisher:/app
       - ../videos:/videos  
+    restart: always
     networks:
       - media-server
     command: ["python3", "main.py"]
@@ -35,3 +36,4 @@ services:
 networks:
   media-server:
     name: media-server
+    external: True
