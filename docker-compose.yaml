@@ -35,8 +35,7 @@ services:
       - ./videos:/videos  
     networks:
       - media-server
-    # command: ["python3", "main.py"]
-    tty: True
+    command: ["python3", "main.py"]
 
 networks:
   media-server:
