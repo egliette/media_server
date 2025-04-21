@@ -1,5 +1,23 @@
 videos/
-test_videos/
+
+# Common video formats
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.flv
+*.wmv
+*.webm
+*.mpeg
+*.mpg
+*.m4v
+*.3gp
+*.ogv
+
+# Optionally, ignore large raw formats too
+*.yuv
+*.raw
+*.ts
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
