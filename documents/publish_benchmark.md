@@ -3,9 +3,10 @@ ffmpeg -re -stream_loop -1 -i <video> -c copy -f rtsp <rtsp_url>
 ```
 - CPU% < 4%
 - MEM < 20 MiB
-- size = 9419kB 
-- bitrate = 7748.2kbits/s
+- size for 10s = 9419kB 
+- bitrate for 10s = 7748.2kbits/s
 
+---
 
 ```
 ffmpeg -re -stream_loop -1 -i <video> \
@@ -15,5 +16,8 @@ ffmpeg -re -stream_loop -1 -i <video> \
 ```
 - CPU% < 4%
 - MEM < 21 MiB
-- size = 7163kB  
-- bitrate = 5892.3kbits/s
+- size for 10s = 7163kB  
+- bitrate for 10s = 5892.3kbits/s
+
+---
+
