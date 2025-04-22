@@ -28,25 +28,30 @@ def stream_videos(video_files: list[str]):
 def stream_video_to_url(video_path: str) -> Thread:
     video_name = Path(video_path).stem
     rtsp_url = f"rtsp://{USERNAME}:{PASSWORD}@media-server:8554/{video_name}"
+    # command = [
+    #     "ffmpeg", 
+    #     "-re", 
+    #     "-stream_loop", "-1", 
+    #     "-i", video_path,
+
+    #     # Low‑latency flags
+    #     "-fflags", "nobuffer",
+    #     "-flags", "low_delay",
+    #     "-max_delay", "0",
+    #     "-tune", "zerolatency",
+
+    #     # Encoder and preset
+    #     "-c", "copy",
+    #     "-preset", "ultrafast",
+
+    #     # Output format
+    #     "-f", "rtsp", 
+    #     rtsp_url
+    # ]
     command = [
-        "ffmpeg", 
-        "-re", 
-        "-stream_loop", "-1", 
-        "-i", video_path,
-
-        # Low‑latency flags
-        "-fflags", "nobuffer",
-        "-flags", "low_delay",
-        "-max_delay", "0",
-        "-tune", "zerolatency",
-
-        # Encoder and preset
-        "-c:v", "libx264",
-        "-preset", "ultrafast",
-
-        # Output format
-        "-f", "rtsp", 
-        rtsp_url
+        "ffmpeg", "-re", "-stream_loop", "-1", "-i", video_path, 
+        "-c", "copy",
+        "-f", "rtsp", rtsp_url
     ]
     return run_command_in_thread(command)
 

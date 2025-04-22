@@ -136,17 +136,11 @@ traceroute stream.example.com
 
 ### 3. `ffmpeg` Streaming Diagnostic
 
-Test live streams for network-related issues.
+This command records 10 seconds of an RTSP stream using TCP transport, saving it to a `.ts` file without re-encoding. It's useful for **measuring stream size** and **bitrate**, as the file can be analyzed offline.
 
 ```bash
-ffmpeg -i <stream_url> -loglevel debug -f null -
+ffmpeg -rtsp_transport tcp -i <stream_url> -t 10 -c copy output.ts
 ```
-
-- Logs will show:
-  - Packet buffering (`buffer underflow`)
-  - Timestamp issues (`non-monotonic DTS`)
-  - Dropped or delayed frames
-  - Connection resets or timeouts
 
 ---
 
