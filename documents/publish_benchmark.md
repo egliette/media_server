@@ -3,8 +3,6 @@ ffmpeg -re -stream_loop -1 -i <video> -c copy -f rtsp <rtsp_url>
 ```
 - CPU% < 4%
 - MEM < 20 MiB
-- size for 10s = 9419kB 
-- bitrate for 10s = 7748.2kbits/s
 
 ---
 
@@ -16,8 +14,25 @@ ffmpeg -re -stream_loop -1 -i <video> \
 ```
 - CPU% < 4%
 - MEM < 21 MiB
-- size for 10s = 7163kB  
-- bitrate for 10s = 5892.3kbits/s
 
 ---
 
+```
+gst-launch-1.0 \
+  filesrc location=<video> ! \
+  avidemux name=demux demux.video_0 ! \
+  mpeg4videoparse ! \ 
+  mpegtsmux ! \
+  filesink location=output.ts
+
+gst-launch-1.0 \
+  multifilesrc location=/videos/output.ts loop=true ! \
+  tsdemux name=demux demux.video_0_0041 ! \
+  queue ! \
+  mpeg4videoparse ! \
+  rtspclientsink location=<rtsp_url> latency=0 protocols=tcp
+```
+- CPU% < 4%
+- MEM < 166 MiB
+
+---
