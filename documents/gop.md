@@ -63,7 +63,7 @@ When streaming (e.g., RTSP):
       > `** ERROR: <RunUserCallback:123>: No video stream found `
 
     * Artifacts span longer if packet loss occurs.
-    * On weak or lossy networks, frames depending on missing packets can’t be decoded, leading to **prolonged visual glitches or freezing**.
+    * On weak or lossy networks, frames depending on missing packets can't be decoded, leading to **prolonged visual glitches or freezing**.
     * Playback or seeking may **stall until the next I-frame** is received.
 
 * **GOP Too Small** (e.g., 1–15 frames):
@@ -99,7 +99,7 @@ ffprobe -v error \
     }'
 ```
 
-* Dumps each frame’s PTS and type.
+* Dumps each frame's PTS and type.
 * `awk` computes frames and seconds between I-frames.
 
 ### B. Live RTSP Stream
@@ -135,17 +135,20 @@ To re-encode and force a fixed GOP (e.g., 24 frames) and disable scene-change in
 
 ```bash
 ffmpeg -i input.mp4 \
-  -c:v libx264 \     # use x264 encoder
-  -preset medium \   # speed-quality tradeoff
-  -g 24 \            # maximum interval between IDR frames = 24
-  -keyint_min 24 \   # minimum interval between IDR frames = 24
-  -sc_threshold 0 \  # disable scene-change insertion of extra I-frames
-  -c:a copy \        # copy audio
+  -c:v libx264 \
+  -preset medium \
+  -g 24 \
+  -keyint_min 24 \
+  -sc_threshold 0 \
+  -c:a copy \
   output_gop24.mp4
 ```
 
-* `-g 24`: sets **max** distance (frames) between keyframes.
-* `-keyint_min 24`: sets **min** distance between keyframes.
-* `-sc_threshold 0`: prevents additional keyframes on scene cuts, locking GOP exactly at 24 frames.
+* `-c:v libx264`: use x264 encoder
+* `-preset medium`: speed-quality tradeoff
+* `-g 24`: sets **max** distance (frames) between keyframes (maximum interval between IDR frames = 24)
+* `-keyint_min 24`: sets **min** distance between keyframes (minimum interval between IDR frames = 24)
+* `-sc_threshold 0`: disables scene-change insertion of extra I-frames, locking GOP exactly at 24 frames
+* `-c:a copy`: copy audio
 
 **Scene cut** is a sudden change between scenes or camera angles in a video, where the encoder usually inserts an extra I-frame to improve quality. The `-sc_threshold` option controls this behavior: setting it to 0 disables these extra I-frames, forcing keyframes only at fixed GOP intervals. This helps keep GOP size consistent but may reduce visual quality at abrupt scene changes.
